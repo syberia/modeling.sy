@@ -1,5 +1,9 @@
-# Syberia Modeling Engine
+# Example of new syberia project
 
-This [Syberia](https://github.com/robertzk/syberia) enigne defines the core elements
-common to most Syberia modeling projects.
+```r
+lockbox::lockbox("lockfile.yml")
+library(syberia)
+syberia_project(".")
+run("example1")
+```
 
