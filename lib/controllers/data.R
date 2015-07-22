@@ -1,10 +1,10 @@
 # The data controller.
-preprocessor <- function(director, source_args) {
+preprocessor <- function(director, source_env) {
   # Add lexicals to local environment.
-  lexicals <- director$resource('lib/shared/lexicals')$value()
-  for (x in ls(lexicals)) source_args$local[[x]] <- lexicals[[x]]
+  lexicals <- director$resource('lib/shared/lexicals')
+  for (x in ls(lexicals)) source_env[[x]] <- lexicals[[x]]
 
-  director$resource('lib/shared/source_mungebits')$value()(source_args$local, director)
+  director$resource('lib/shared/source_mungebits', source_env, director)
 
   source()
 }
@@ -12,7 +12,7 @@ preprocessor <- function(director, source_args) {
 function(director, args) {
   if (isTRUE(args$raw)) { output } # Return a list of munge_procedures
   else {
-    data_stage <- director$resource('lib/stages/data')$value()
+    data_stage <- director$resource('lib/stages/data')
 
     if (is.environment(args$env)) {
       env <- args$env
