@@ -44,6 +44,13 @@ test_project <- function(..., as.ci = FALSE, as.travis = as.ci) {
   syberia::test_project(...)
 }
 
+last_model <- function() { director$cache_get("last_model") }
+last_run <- function() { director$cache_get("last_run") }
+active_runner <- function() { director$cache_get("last_model_runner") }
+
+run_model <- define('run_model', local = TRUE)[[1]](director)
+run <- run_model
+
 makeActiveBinding("A", function() last_run()$after$data, env = globalenv())
 makeActiveBinding("B", function() last_run()$before$data, env = globalenv())
 makeActiveBinding("M", function() last_run()$after$model_stage$model, env = globalenv())
