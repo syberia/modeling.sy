@@ -1,6 +1,6 @@
 # Use local = TRUE when sourcing construct_stage_runner in order to ensure
 # objectdiff package is loaded for stageRunner creation (with tracked_environments).
-construct_stage_runner <- Ramd::define('construct_stage_runner', local = TRUE)[[1]](resource)
+construct_stage_runner <- Ramd::define('construct_stage_runner')[[1]](resource)
 
 preprocessor <- Ramd::define('preprocessor')[[1]]
 
@@ -8,6 +8,9 @@ preprocessor <- Ramd::define('preprocessor')[[1]]
 #
 # Convert a model into a stagerunner.
 function(args, resource, output, director, any_dependencies_modified) {
+  # Support objectdiff::ls behavior.
+  parent.env(parent.env(environment(construct_stage_runner))) <- environment()
+
   if (is.element("raw", names(args))) return(output)
   require(objectdiff)
 
