@@ -1,15 +1,14 @@
 # engine("base", type = "github", repo = "robertzk/base.sy")
-engine("base", type = "local", path = "~/dev/base.sy")
+engine("base", type = "local", path = "~/dev/base.sy", mount = TRUE)
 
 .onAttach <- function(parent_engine) {
   # `director` is the base engine object.
-  routes <- director$cache_get("engines")$base$resource("lib/controllers/routes")
+  routes <- director$.engines$base$engine$resource("lib/controllers/routes")
 
-  parent_engine$register_preprocessor("config/routes", routes$preprocessor, overwrite = TRUE)
   parent_engine$register_parser("config/routes", routes$parser, overwrite = TRUE)
 
   # TODO: (RK) Fix this hack using a proper helper resource.
-  environment(routes$preprocessor)$mount(parent_engine)(director)
+  # environment(routes$preprocessor)$mount(parent_engine)(director)
 
   parent_engine$resource("config/routes")
 
