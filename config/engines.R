@@ -1,5 +1,5 @@
-# engine("base", type = "github", repo = "robertzk/base.sy")
-engine("base", type = "local", path = "~/dev/base.sy", mount = TRUE)
+engine("base", type = "github", repo = "robertzk/base.sy")
+# engine("base", type = "local", path = "~/dev/base.sy", mount = TRUE)
 
 .onAttach <- function(parent_engine) {
   # `director` is the base engine object.
