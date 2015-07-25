@@ -84,7 +84,7 @@ construct_stage_runner <- function(resource) {
     # TODO: (RK) Get rid of this awful hack to normalize a nested stageRunner.
     set_env <- function(x) {
       if (is.stagerunner(x)) {
-        x$context <- modelenv
+        x$.context <- modelenv
         # x$remember <- TRUE
         for (i in seq_along(x$stages)) set_env(x$stages[[i]])
       }

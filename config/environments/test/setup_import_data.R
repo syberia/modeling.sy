@@ -7,7 +7,7 @@
 function(director, optional_tests) {
   force(director); force(optional_tests)
   setup_import_data <- function(env) {
-    models <- director$find('^models', method = 'substring')
+    models <- director$find('^models', method = 'partial')
     # TODO: (RK) Remove this hotfix when director$find doesn't return leading '/'
     models <- gsub("^\\/", "", models)
 
@@ -18,16 +18,15 @@ function(director, optional_tests) {
 
     if (length(models_without_test_data) > 0) {
       for (model in models_without_test_data) {
-        model_list <- director$resource(model)$value(parse. = FALSE)
+        model_list <- director$resource(model, parse. = FALSE)
         if (!is.element('data', names(model_list))) { next } # Skip if no data stage.
 
         cat(sep = '', crayon::yellow("Running data preparation"),
             " on the following model so it can be tested on Travis:\n",
             paste(paste(" *", model), collapse = "\n"), "\n\n")
         # Run the test, which will automatically cache the import data.
-        director$resource(file.path("test", model))$value()
+        director$resource(file.path("test", model))
       }
     }
   }
 }
-

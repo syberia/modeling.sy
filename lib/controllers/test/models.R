@@ -7,19 +7,20 @@ preprocessor <- function() {
   tested_resource <- gsub("^test\\/", "", resource)
   context(tested_resource)
 
-  colored_name <- function(color = 'red')
+  colored_name <- function(color = 'red') {
     sQuote(eval(bquote(`::`(crayon, .(as.name(color)))))(tested_resource))
+  }
 
   if (!director$exists(tested_resource)) {
     stop("There is a test for ", colored_name('red'), " but no actual model.", call. = FALSE)
   }
 
-  model <- director$resource(tested_resource)$value(parse. = FALSE)
+  model <- director$resource(tested_resource, parse. = FALSE)
   if (!is.element('data', names(model))) { return() } # Skip if no data stage.
 
   message("Testing ", colored_name('green'), "\n")
 
-  stagerunner <- suppressMessages(director$resource(tested_resource)$value(recompile = TRUE))
+  stagerunner <- suppressMessages(director$resource(tested_resource, recompile = TRUE))
   if (!is.element('data', names(stagerunner$stages))) return()
 
   # TODO: (RK) Perform import data caching in the construct_stage_runner
@@ -31,17 +32,21 @@ preprocessor <- function() {
     import_data <- test_data
   } else {
     stagerunner$run('import')
-    attr(stagerunner$context$data, 'mungepieces') <- NULL
-    row.names(stagerunner$context$data) <- NULL
-    num_rows <- NROW(stagerunner$context$data)
+    attr(stagerunner$.context$data, 'mungepieces') <- NULL
+    row.names(stagerunner$.context$data) <- NULL
+    num_rows <- NROW(stagerunner$.context$data)
     if (num_rows == 0) stop("Data from import stage has no rows", call. = FALSE)
-    import_data <- stagerunner$context$data[ sample(seq_len(num_rows), 100), ]
+    import_data <- stagerunner$.context$data[ sample(seq_len(num_rows), 100), ]
     reg$set(file.path('import_data', tested_resource), import_data)
-    director$.cache$import_data[[tested_resource]] <- TRUE
+    director$cache_set("import_data", local({
+      cache_data <- director$cache_get("import_data")
+      cache_data[[tested_resource]] <- TRUE
+      cache_data
+    }))
   }
 
   stagerunner <- stagerunner$stages$data
-  stagerunner$context$data <- import_data
+  stagerunner$.context$data <- import_data
 
   stream <- tempfile()
   sink(stream)
@@ -56,9 +61,9 @@ preprocessor <- function() {
     stagerunner$run(verbose = TRUE, remember_flag = FALSE)
   }
 
-  if (NROW(stagerunner$context$data) == 0)
+  if (NROW(stagerunner$.context$data) == 0)
     stop("Munging removed all of the rows in ", colored_name(), call. = FALSE)
-  if (NCOL(stagerunner$context$data) == 0)
+  if (NCOL(stagerunner$.context$data) == 0)
     stop("Munging removed all of the columns in ", colored_name(), call. = FALSE)
 
   invisible(TRUE)

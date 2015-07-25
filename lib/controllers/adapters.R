@@ -1,10 +1,11 @@
 cache <- TRUE
 
-preprocessor <- function() {
-  if ((name <- tolower(basename(resource))) %in% c('r', 's3', 'file'))
+preprocessor <- function(source, resource) {
+  if ((name <- tolower(basename(resource))) %in% c('r', 's3', 'file')) {
     syberiaStages:::fetch_adapter(name)
-  else
-    do.call(base::source, source_args)$value
+  } else {
+    source()
+  }
 }
 
 function(input, output, resource, director) {
@@ -26,8 +27,9 @@ function(input, output, resource, director) {
   adapter_name <- gsub("^lib/adapters/", "", resource)
   if (!is.element(adapter_name, names(adapters))) {
     # TODO: (RK) Temporary hack
-    if (director:::is.idempotent_directory(file.path(director$root(), resource)))
+    if (director:::is.idempotent_directory(file.path(director$root(), resource))) {
       adapter_name <- file.path(adapter_name, basename(adapter_name))
+    }
 
     adapters[[adapter_name]] <- syberiaStages:::fetch_adapter(adapter_name)
     syberiaStructure:::set_cache(adapters, 'adapters')
