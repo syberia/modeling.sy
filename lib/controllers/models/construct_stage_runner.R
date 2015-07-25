@@ -89,15 +89,15 @@ construct_stage_runner <- function(resource) {
         for (i in seq_along(x$stages)) set_env(x$stages[[i]])
       }
       else if (is(x, 'stageRunnerNode')) {
-        x$cached_env <- NULL
+        x$.cached_env <- NULL
         x$.context <- modelenv
         x$executed <- FALSE
       }
     }
     set_env(runner)
     first_leaf <- stagerunner:::treeSkeleton$new(runner)$first_leaf()$object
-    first_leaf$cached_env <- new.env()
-    stagerunner:::copy_env(first_leaf$cached_env, modelenv)
+    first_leaf$.cached_env <- new.env()
+    stagerunner:::copy_env(first_leaf$.cached_env, modelenv)
     runner$.set_parents() 
 
     runner
