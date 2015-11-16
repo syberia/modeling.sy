@@ -2,6 +2,7 @@ engine("base", type = "github", repo = "robertzk/base.sy", mount = TRUE)
 # engine("base", type = "local", path = "~/dev/base.sy", mount = TRUE)
 
 .onAttach <- function(parent_engine) {
+
   # `director` is the base engine object.
   routes <- director$.engines$base$engine$resource("lib/controllers/routes")
 
@@ -15,16 +16,13 @@ engine("base", type = "github", repo = "robertzk/base.sy", mount = TRUE)
   # Annoying hotfix for RCurl onLoad option setting interfering with tests.
   options(httr_oauth_cache = NULL, httr_oob_default = NULL)
 
-  globals <- director$resource('config/global', director = parent_engine)
-  for (global in ls(globals)) {
-    assign(global, globals[[global]], envir = globalenv()) # yuck
+  attach(director$resource("config/global/modeling", parent. = FALSE),
+         name = "syberia:modeling")
+
+  if (parent_engine$exists("config/global", children. = FALSE)) {
+    attach(parent_engine$resource('config/global', director = parent_engine, children. = FALSE),
+           name = "syberia:project")
   }
 
-  if (parent_engine$exists('config/global')) {
-    globals <- parent_engine$resource('config/global')
-    for (global in ls(globals)) {
-      assign(global, globals[[global]], envir = globalenv()) # yuck
-    }
-  }
 }
 
