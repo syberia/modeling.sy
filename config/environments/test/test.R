@@ -6,8 +6,7 @@ if (!nzchar(Sys.getenv('CI'))) {
 }
 
 # Test setup hooks
-setup <- Ramd::define('check_readme', 'setup_import_data',
-                function(check_readme, setup_import_data) {
+setup <- Ramd::define('setup_import_data', function(setup_import_data) {
   list("Announce tests"                     = function(env) cat("Running tests...\n"),
        "Setup import_data for models"       = setup_import_data(director, optional_tests)
       )
@@ -23,7 +22,7 @@ teardown <- list(
 single_setup <- list(
   "Announce test" = function(env) {
     cat("Testing ", sQuote(env$resource), "...\n")
-  },
+  }
 )
 
 # single_teardown <- list()

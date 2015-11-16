@@ -85,7 +85,7 @@ reload_syberia <- function(...) {
   syberia_project(root())
   invisible(TRUE)
 }
-run_model <- define("run_model")[[1L]]
+run_model <- Ramd::define("run_model")[[1L]]
 run <- run_model
 
 makeActiveBinding("A", function() last_run()$after$data, env = globalenv())
