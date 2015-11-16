@@ -3,5 +3,5 @@ train <- function(dataframe) {
 }
 
 predict <- function(dataframe) {
-  predict(output$model, newdata = dataframe)
+  unname(stats::predict(output$model, newdata = dataframe))
 }

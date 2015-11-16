@@ -16,7 +16,8 @@ test_that("it can predict on a simple lm model", {
   model <- resource()()
   data <- within(iris, dep_var <- as.integer(Sepal.Length > 5))
   model$train(data[-1])
-  expect_equal(stats::predict(lm(dep_var ~ ., data[-1])), model$predict(data[-1]))
+  expect_equal(unname(stats::predict(lm(dep_var ~ ., data[-1]))),
+               model$predict(data[-1]))
 })
 
 
