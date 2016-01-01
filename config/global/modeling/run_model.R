@@ -24,7 +24,7 @@ run_model <- function(key = director$cache_get("last_key"), ..., fresh = FALSE,
   }
   
   # Construct the stageRunner and then execute it.
-  director$cache_set("last_run",
-    director$resource(keys[1])$run(..., verbose = verbose))
+  invisible(director$cache_set("last_run",
+    director$resource(keys[1])$run(..., verbose = verbose))[[1L]])
 }
 
