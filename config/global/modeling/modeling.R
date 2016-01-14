@@ -23,7 +23,7 @@ stest <- function(filter) {
   filter <- gsub("^\\/?test/", "", filter)
   if (missing(filter)) test_project(root()) # Run all tests in this repo
   else {
-    tests <- syberia::active_project()$find(filter, base = 'test')
+    tests <- syberia::active_project()$find(filter, base = 'test')    
     for (test in tests) syberia::active_project()$resource(test, recompile = TRUE, recompile. = TRUE) # Run test
   }
 }
@@ -36,14 +36,10 @@ reload_syberia <- function(...) {
   invisible(TRUE)
 }
 
-test_project <- function(..., as.ci = FALSE, as.travis = as.ci) {
-  if (isTRUE(as.ci) || isTRUE(as.travis)) {
-    Sys.setenv(CI = "TRUE")
-    on.exit(Sys.setenv(CI = ""), add = TRUE)
-  }
-  syberia::test_project(...)
-}
+run_model <- Ramd::define("run_model")[[1L]]
+run <- run_model
 
-last_model <- function() { syberia::active_project()$cache_get("last_model") }
-last_run <- function() { syberia::active_project()$cache_get("last_run") }
-active_runner <- function() { syberia::active_project()$cache_get("last_model_runner") }
+makeActiveBinding("A", function() last_run()$after$data, env = globalenv())
+makeActiveBinding("B", function() last_run()$before$data, env = globalenv())
+makeActiveBinding("M", function() last_run()$after$model_stage$model, env = globalenv())
+makeActiveBinding("S", function() active_runner(), env = globalenv())
