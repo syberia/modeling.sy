@@ -1,10 +1,10 @@
-# engine("base", type = "github", repo = "robertzk/base.sy", mount = TRUE)
-engine("base", type = "local", path = "~/dev/base.sy", mount = TRUE)
+#engine("mungebits", type = "github", repo = "syberia/mungebits.sy", mount = TRUE)
+engine("mungebits", type = "local", path = "~/dev/mungebits.sy", mount = TRUE)
 
 .onAttach <- function(parent_engine) {
 
-  # `director` is the base engine object.
-  routes <- director$.engines$base$engine$resource("lib/controllers/routes")
+  # `director` is the mungebits engine object.
+  routes <- director$.engines$mungebits$engine$resource("lib/controllers/routes")
 
   parent_engine$register_parser("config/routes", routes$parser, overwrite = TRUE)
 

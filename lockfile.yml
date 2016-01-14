@@ -37,26 +37,6 @@ packages:
     version: 0.2.2
     repo: robertzk/tundra
   -
-    name: mungebits
-    version: 0.3.5
-    repo: robertzk/mungebits
-  -
-    name: batbelt
-    version: 0.1.2
-    repo: robertzk/batbelt
-  -
-    name: batchman
-    version: 1.1.0
-    repo: peterhurford/batchman
-  -
-    name: cachemeifyoucan
-    version: 0.2.0.5
-    repo: robertzk/cachemeifyoucan
-  -
-    name: objectdiff
-    version: 0.2.3
-    repo: robertzk/objectdiff
-  -
     name: stagerunner
     version: 0.4.1
     repo: robertzk/stagerunner
@@ -65,21 +45,9 @@ packages:
     version: 0.2.1
     repo: robertzk/director
   -
-    name: syberiaMungebits
-    version: 0.2.3
-    repo: robertzk/syberiaMungebits
-  -
     name: s3mpi
     version: 0.2.8
     repo: robertzk/s3mpi
-  -
-    name: syberiaStages
-    version: 0.2.3
-    repo: robertzk/syberiaStages
-  -
-    name: dokk
-    version: 0.2.0
-    repo: kirillseva/dokk
   -
     name: syberia
     version: 0.4.4
@@ -94,9 +62,3 @@ packages:
     ref: 6601aab68559308654ab6dad7e2181f510a44b1f
     repo: Rdatatable/data.table
     load: false
-  -
-    name: xgboost
-    version: 1.0.4
-    repo: FeiYeYe/xgboost
-    load: false
-    subdir: R-package
