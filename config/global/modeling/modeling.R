@@ -23,7 +23,7 @@ stest <- function(filter) {
   filter <- gsub("^\\/?test/", "", filter)
   if (missing(filter)) test_project(root()) # Run all tests in this repo
   else {
-    tests <- syberia::active_project()$find(filter, base = 'test')    
+    tests <- syberia::active_project()$find(filter, base = 'test')
     for (test in tests) syberia::active_project()$resource(test, recompile = TRUE, recompile. = TRUE) # Run test
   }
 }
@@ -35,6 +35,18 @@ reload_syberia <- function(...) {
   syberia_project(root())
   invisible(TRUE)
 }
+
+test_project <- function(..., as.ci = FALSE, as.travis = as.ci) {
+  if (isTRUE(as.ci) || isTRUE(as.travis)) {
+    Sys.setenv(CI = "TRUE")
+    on.exit(Sys.setenv(CI = ""), add = TRUE)
+  }
+  syberia::test_project(...)
+}
+
+last_model <- function() { syberia::active_project()$cache_get("last_model") }
+last_run <- function() { syberia::active_project()$cache_get("last_run") }
+active_runner <- function() { syberia::active_project()$cache_get("last_model_runner") }
 
 run_model <- Ramd::define("run_model")[[1L]]
 run <- run_model
