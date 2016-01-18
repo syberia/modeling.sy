@@ -1,6 +1,7 @@
 #' Read data from an R environment variable.
 #'
-#' @param name character. Name of the global variable.
+#' @param name character. Name of the variable in the \code{env}
+#'    environment.
 #' @param env environment. By default \code{globalenv()}.
 #' @param inherits logical. Whether or not to look up the
 #'    enclosing environment chain over \code{env}.
