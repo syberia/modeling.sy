@@ -1,0 +1,44 @@
+language: c
+sudo: true
+before_install:
+- curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
+- chmod 755 ./travis-tool.sh
+- "./travis-tool.sh bootstrap"
+install:
+- "./travis-tool.sh install_r devtools memoise stringr"
+- "./travis-tool.sh install_r gbm survival"
+- "./travis-tool.sh install_github hadley/purrr"
+- "./travis-tool.sh install_github robertzk/Ramd hadley/testthat"
+- "./travis-tool.sh install_github robertzk/testthatsomemore"
+- "./travis-tool.sh install_github avantcredit/aws-tools"
+- "./travis-tool.sh install_github kirillseva/cacher"
+- "./travis-tool.sh install_github robertzk/s3mpi"
+- "./travis-tool.sh install_github robertzk/objectdiff"
+- "./travis-tool.sh install_github syberia/stagerunner"
+- "./travis-tool.sh install_github syberia/director"
+- "./travis-tool.sh install_github robertzk/statsUtils"
+- "./travis-tool.sh install_github robertzk/mungebits"
+- "./travis-tool.sh install_github syberia/mungebits2"
+- "./travis-tool.sh install_github syberia/tundra"
+- "./travis-tool.sh install_github robertzk/syberiaStructure"
+- "./travis-tool.sh install_github robertzk/syberiaStages"
+- "./travis-tool.sh install_github robertzk/syberiaMungebits"
+- "./travis-tool.sh install_github syberia/syberia@0.6-dev"
+# The devtools::with_options call is necessary here to avoid global option
+# pollution. syberia::test_engine will complain if any global options change
+# during its run, and devtools sets a couple.
+script: "Rscript -e 'library(syberia);library(methods);devtools::with_options(list(stub = 1), force);syberia::syberia_engine();tryCatch(syberia::test_engine(), error = function(.) quit(status = 1))'"
+after_failure:
+- "./travis-tool.sh dump_logs"
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+  hipchat:
+    on_success: change
+    on_failure: change
+    template:
+    - "%{repository}#%{build_number} (%{branch} - %{commit} : %{author}): %{message}
+      | Details: %{build_url} | Changes: %{compare_url}"
+    rooms:
+      secure: YZBevm4Adi9s/Rm/I/wQgMXC9xwJEfIWIY9W/IfuKydXbrSVz1ySpg+dRytyiMxNn9PepgnS99oSByKELsdRTTOYIzOvqMGkb+4RTw3x89ieOtvToQ7FJmnPexVAILe7E44/cuWgn/D2r+JKn9bAG9O/NgqPvFuRptxXQtQDDA8=
