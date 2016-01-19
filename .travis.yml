@@ -19,9 +19,7 @@ install:
 - "./travis-tool.sh install_github syberia/tundra"
 - "./travis-tool.sh install_github robertzk/syberiaStructure"
 - "./travis-tool.sh install_github robertzk/syberiaStages"
-- "./travis-tool.sh install_github syberia/syberia"
-- "mkdir -p ~/.R/.syberia/engines/github/syberia/base.sy/master"
-- "git clone https://github.com/syberia/base.sy.git ~/.R/.syberia/engines/github/syberia/base.sy/master"
+- "./travis-tool.sh install_github syberia/syberia@0.6-dev"
 # The devtools::with_options call is necessary here to avoid global option
 # pollution. syberia::test_engine will complain if any global options change
 # during its run, and devtools sets a couple.
