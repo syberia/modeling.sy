@@ -1,5 +1,6 @@
 optional_tests <- c("lib/controllers", "lib/shared/gbm_parameters",
-                    "lib/shared/lexicals", "lib/shared/source_mungebits")
+                    "lib/shared/lexicals", "lib/shared/source_mungebits",
+                    "lib/shared/default_adapter", "lib/classifiers/test")
 
 if (!nzchar(Sys.getenv("CI"))) {
   ignored_tests <- "models"
@@ -19,9 +20,24 @@ teardown <- list(
   }
 )
 
+
+pROCoption <- getOption("pROCProgress")
+msvc_option <- getOption("mgcv.vc.logrange")
+survfit <- list (mean = getOption("survfit.print.mean"),
+                 n    = getOption("survfit.print.n"))
+
 single_setup <- list(
-  "Announce test" = function(env) {
-    cat("Testing ", sQuote(env$resource), "...\n")
+  "Hotfix leaky options" = function(e) {
+    options(mgcv.vc.logrange = msvc_option, survfit.print.mean = survfit$mean,
+            survfit.print.n = survfit$n, pROCProgress = pROCoption,
+            lme4.summary.cor.max = NULL)
   }
 )
 
+single_teardown <- list(
+  "Hotfix leaky options" = function(e) {
+    options(mgcv.vc.logrange = msvc_option, survfit.print.mean = survfit$mean,
+            survfit.print.n = survfit$n, pROCProgress = pROCoption,
+            lme4.summary.cor.max = NULL)
+  }
+)
