@@ -16,12 +16,12 @@ parameters_yield <- function(parameters, expr, model = TRUE) {
 
 test_that("it can use the s3 option correctly", {
   marked <- FALSE
-  devtools::with_options(list("s3mpi.path" = ""),
-    package_stub("s3mpi", "s3store", function(...) marked <<- ..2, {
-      parameters_yield(list(s3 = "boo"))
-      expect_identical(marked, "boo")
-    })
-  )
+  opts <- options(list("s3mpi.path" = ""))
+  on.exit(options(opts))
+  testthatsomemore::package_stub("s3mpi", "s3store", function(...) marked <<- ..2, {
+    parameters_yield(list(s3 = "boo"))
+    expect_identical(marked, "boo")
+  })
 })
 
 test_that("it can use the file option correctly", {

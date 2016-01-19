@@ -1,3 +1,4 @@
+library(testthatsomemore)
 library(s3mpi)
 
 local({
@@ -13,11 +14,11 @@ local({
   }
 
   test_that("it can use the s3 option correctly", {
-    devtools::with_options(list("s3mpi.path" = ""),
-      package_stub("s3mpi", "s3read", function(...) ..1, { 
-        parameters_yield_data(list(s3 = "hello"), "hello")
-      })
-    )
+    opts <- options(list("s3mpi.path" = ""))
+    on.exit(options(opts))
+    testthatsomemore::package_stub("s3mpi", "s3read", function(...) ..1, { 
+      parameters_yield_data(list(s3 = "hello"), "hello")
+    })
   })
 
   test_that("it can use the file option correctly", {
