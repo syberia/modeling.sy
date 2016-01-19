@@ -1,6 +1,7 @@
 optional_tests <- c("lib/controllers", "lib/shared/gbm_parameters",
                     "lib/shared/lexicals", "lib/shared/source_mungebits",
-                    "lib/shared/default_adapter", "lib/classifiers/test")
+                    "lib/shared/default_adapter", "lib/classifiers/test",
+                    "lib/shared/munge_data")
 
 if (!nzchar(Sys.getenv("CI"))) {
   ignored_tests <- "models"

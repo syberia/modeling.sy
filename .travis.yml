@@ -7,7 +7,7 @@ before_install:
 install:
 - "./travis-tool.sh install_r devtools memoise stringr"
 - "./travis-tool.sh install_r gbm survival"
-- "./travis-tool.sh github_package jimhester/covr hadley/purrr"
+- "./travis-tool.sh install_github hadley/purrr"
 - "./travis-tool.sh install_github robertzk/Ramd hadley/testthat"
 - "./travis-tool.sh install_github robertzk/testthatsomemore"
 - "./travis-tool.sh install_github robertzk/objectdiff"
@@ -21,8 +21,6 @@ install:
 script: "Rscript -e 'library(syberia);library(methods);devtools::with_options(list(stub = 1), force); syberia::test_engine()'"
 after_failure:
 - "./travis-tool.sh dump_logs"
-after_success:
-- Rscript -e 'library(covr);coveralls()'
 notifications:
   email:
     on_success: change
