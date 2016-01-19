@@ -1,0 +1,36 @@
+language: c
+before_install:
+- curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
+- chmod 755 ./travis-tool.sh
+- "./travis-tool.sh bootstrap"
+install:
+- "./travis-tool.sh install_r devtools memoise stringr"
+- "./travis-tool.sh install_r gbm survival"
+- "./travis-tool.sh github_package jimhester/covr hadley/purrr"
+- "./travis-tool.sh install_github robertzk/Ramd hadley/testthat"
+- "./travis-tool.sh install_github robertzk/testthatsomemore"
+- "./travis-tool.sh install_github robertzk/objectdiff"
+- "./travis-tool.sh install_github syberia/stagerunner"
+- "./travis-tool.sh install_github syberia/director"
+- "./travis-tool.sh install_github robertzk/statsUtils"
+- "./travis-tool.sh install_github syberia/mungebits2"
+- "./travis-tool.sh install_github syberia/tundra"
+- "./travis-tool.sh install_github robertzk/syberiaStructure"
+- "./travis-tool.sh install_github robertzk/syberiaStages"
+script: "./travis-tool.sh run_tests"
+after_failure:
+- "./travis-tool.sh dump_logs"
+after_success:
+- Rscript -e 'library(covr);coveralls()'
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+  hipchat:
+    on_success: change
+    on_failure: change
+    template:
+    - "%{repository}#%{build_number} (%{branch} - %{commit} : %{author}): %{message}
+      | Details: %{build_url} | Changes: %{compare_url}"
+    rooms:
+      secure: YZBevm4Adi9s/Rm/I/wQgMXC9xwJEfIWIY9W/IfuKydXbrSVz1ySpg+dRytyiMxNn9PepgnS99oSByKELsdRTTOYIzOvqMGkb+4RTw3x89ieOtvToQ7FJmnPexVAILe7E44/cuWgn/D2r+JKn9bAG9O/NgqPvFuRptxXQtQDDA8=
