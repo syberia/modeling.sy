@@ -20,6 +20,9 @@ install:
 - "./travis-tool.sh install_github robertzk/syberiaStructure"
 - "./travis-tool.sh install_github robertzk/syberiaStages"
 - "./travis-tool.sh install_github syberia/syberia"
+# The devtools::with_options call is necessary here to avoid global option
+# pollution. syberia::test_engine will complain if any global options change
+# during its run, and devtools sets a couple.
 script: "Rscript -e 'library(syberia);library(methods);devtools::with_options(list(stub = 1), force); syberia::test_engine()'"
 after_failure:
 - "./travis-tool.sh dump_logs"
