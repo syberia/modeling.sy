@@ -1,4 +1,4 @@
-if (!nzchar(Sys.getenv("R_ROOT"))) {
+if (!nzchar(Sys.getenv("R_ROOT")) && !nzchar(Sys.getenv("CI"))) {
   Sys.setenv("R_ROOT" = "TRUE")
   # Avoid pesky X11 UI for new users.
   options(repos = structure(c(CRAN = "http://cran.rstudio.com/")))
