@@ -9,8 +9,9 @@ default_adapter <- resource("lib/shared/default_adapter")
 #'   IO adapters. (See the "adapter" reference class.)
 build_export_stagerunner <- function(export_options) {
   stages <- lapply(seq_along(export_options), function(index) {
-    adapter <- names(export_options)[index] %||% default_adapter
-    adapter <- syberiaStages:::fetch_adapter(adapter)
+    adapter_name <- names(export_options)[index] %||% default_adapter
+    adapter_name <- gsub(".", "/", adapter_name, fixed = TRUE)
+    adapter <- resource(file.path("lib", "adapters", adapter_name))
     type <- as.list(export_options[[index]])$.type %||% quote(model_stage$model)
     type <-
       if (identical(type, "data")) { quote(data) }
