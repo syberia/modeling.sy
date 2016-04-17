@@ -1,11 +1,7 @@
-optional_tests <- c("lib/controllers", "lib/models", "lib/shared/gbm_parameters",
+optional_tests <- c("lib/controllers", "models", "lib/shared/gbm_parameters",
                     "lib/shared/lexicals", "lib/shared/source_mungebits",
                     "lib/shared/default_adapter", "lib/classifiers/test",
                     "lib/shared/munge_data")
-
-if (!nzchar(Sys.getenv("CI"))) {
-  ignored_tests <- "models"
-}
 
 # Test setup hooks
 setup <- Ramd::define("setup_import_data", function(setup_import_data) {
