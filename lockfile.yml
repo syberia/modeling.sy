@@ -47,3 +47,9 @@ packages:
     name: mungebits2
     version: 0.1.0.9002
     repo: syberia/mungebits2
+  -
+    name: gbm
+    version: 2.1.1
+  -
+    name: parallel
+    version: 3.2.3
