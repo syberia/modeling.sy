@@ -1,9 +1,3 @@
-ensure_s3mpi <- function() {
-  if (!requireNamespace("s3mpi", quietly = TRUE)) {
-    stop("Please ensure the s3mpi package is installed to use the S3 adapter.")
-  }
-}
-
 s3key <- function(name, bucket, prefix) {
   stopifnot(missing(bucket) + missing(prefix) < 2)
   stopifnot(is.character(name))
@@ -26,7 +20,6 @@ s3key <- function(name, bucket, prefix) {
 #'    By default, \code{getOption("s3mpi.path")} as in the
 #'    \href{https://github.com/robertzk/s3mpi}{S3mpi package}.
 read <- function(name, bucket, prefix = getOption("s3mpi.path")) {
-  ensure_s3mpi()
   s3mpi::s3read(s3key(name, bucket, prefix), "")
 }
 
@@ -41,7 +34,6 @@ read <- function(name, bucket, prefix = getOption("s3mpi.path")) {
 #'    By default, \code{getOption("s3mpi.path")} as in the
 #'    \href{https://github.com/robertzk/s3mpi}{S3mpi package}.
 write <- function(object, name, bucket, prefix = getOption("s3mpi.path")) {
-  ensure_s3mpi()
   s3mpi::s3store(object, s3key(name, bucket, prefix), "")
 }
 
