@@ -18,7 +18,7 @@ packages:
   -
     name: mungebits
     version: 0.3.13
-    repo: syberia/mungebits
+    repo: robertzk/mungebits
     load: false
   -
     name: syberiaMungebits
