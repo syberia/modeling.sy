@@ -50,6 +50,3 @@ packages:
   -
     name: gbm
     version: 2.1.1
-  -
-    name: parallel
-    version: 3.2.3
