@@ -5,11 +5,11 @@ packages:
     repo: robertzk/objectdiff
   -
     name: stagerunner
-    version: 0.5.0
+    version: 0.5.3
     repo: syberia/stagerunner
   -
     name: Ramd
-    version: 0.2.2
+    version: 0.3.8
     repo: robertzk/Ramd
   -
     name: statsUtils
@@ -38,11 +38,8 @@ packages:
   -
     name: syberia
     version: 0.6.1.9006
-    #remote: local
-    #dir: ~/dev/syberia
     repo: syberia/syberia
     ref: 0.6-dev
-    #ref: engines
   -
     name: mungebits2
     version: 0.1.0.9002
