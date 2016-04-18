@@ -1,5 +1,4 @@
 engine("base", type = "github", repo = "syberia/base.sy", mount = TRUE)
-# engine("base", type = "local", path = "~/dev/base.sy", mount = TRUE)
 
 .onAttach <- function(parent_engine) {
 
