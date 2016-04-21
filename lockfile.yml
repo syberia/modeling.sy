@@ -25,10 +25,6 @@ packages:
     version: 0.2.6
     repo: robertzk/syberiaMungebits
   -
-    name: syberiaStructure
-    version: 0.2.2
-    repo: robertzk/syberiaStructure
-  -
     name: director
     version: 0.3.0.5.9000
     repo: syberia/director
