@@ -18,7 +18,7 @@ cache:
 before_script:
   - rm -rf "/home/travis/.R/.syberia"
   - mkdir -p "$R_LIBS_USER"
-script: "Rscript -e 'library(syberia); library(methods); devtools::with_options(list(stub = 1), force); syberia::syberia_engine(); syberia::test_engine(); quit(status = 0);'"
+script: "Rscript -e 'library(syberia); library(methods); library(s3mpi); devtools::with_options(list(stub = 1), force); syberia::syberia_engine(); syberia::test_engine(); quit(status = 0);'"
 notifications:
   email:
     on_success: change
