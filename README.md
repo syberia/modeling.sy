@@ -1,4 +1,4 @@
-# The Syberia modeling engine
+# The Syberia modeling engine <a href="https://travis-ci.org/syberia/modeling.sy"><img src="https://img.shields.io/travis/syberia/modeling.sy.svg"></a>
 
 This is the core engine used for structured modeling projects
 within [Syberia](https://github.com/syberia/syberia).
