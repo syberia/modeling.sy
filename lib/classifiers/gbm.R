@@ -1,6 +1,5 @@
 train <- function(dataframe) {
   cat("Training GBM model...\n")
-  require(gbm)
     
   gbm_args <- list()
   indep_vars <- setdiff(colnames(dataframe), 'dep_var')
@@ -44,7 +43,7 @@ train <- function(dataframe) {
   # Hack to prevent a hellbug where the AWS.tools package
   # masks the stopCluster function, causing a problem in gbm training
   assign('stopCluster', parallel::stopCluster, envir = globalenv())
-  output <<- list(model = deflate_model(do.call(gbm, gbm_args)), perf = list())
+  output <<- list(model = deflate_model(do.call(gbm::gbm, gbm_args)), perf = list())
   rm('stopCluster', envir = globalenv())
   
   opts <- options("survfit.print.mean", "survfit.print.n")

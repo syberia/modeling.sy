@@ -41,8 +41,7 @@ test_that("it can deflate a chain of helpers", {
   expect_equal(sort(ls(environment(problem))), c("fn2", "fn3"))
 })
 
-test_that("it does not deflate sure_independence_screen", {
-  expect_identical(environment(resource()(syberiaMungebits::sure_independence_screen)),
-                   environment(syberiaMungebits::sure_independence_screen))
-})
-
+#test_that("it does not deflate sure_independence_screen", {
+#  expect_identical(environment(resource()(syberiaMungebits::sure_independence_screen)),
+#                   environment(syberiaMungebits::sure_independence_screen))
+#})
