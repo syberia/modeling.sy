@@ -7,7 +7,11 @@ function(env, director) {
     sapply(mungebits_names, function(x) director:::strip_root("lib/mungebits", x)))
 
   if ("package:syberiaMungebits2" %in% search()) {
-    for (name in ls(as.environment("package:syberiaMungebits2"))) {
+    # We have to intersect package environment and namespace to avoid
+    # exported data sets (like iris_discretized).
+    names <- intersect(ls(as.environment("package:syberiaMungebits2")),
+                       ls(getNamespace("syberiaMungebits2")))
+    for (name in names) {
       env[[name]] <- getFromNamespace(name, "syberiaMungebits2")()
     }
   }
