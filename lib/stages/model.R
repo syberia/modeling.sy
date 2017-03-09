@@ -40,8 +40,9 @@ model_stage <- function(modelenv, model_parameters) {
            " anymore so it is possible to compute the train IDs. ",
            "I will drop it for you. ;)\n", call. = FALSE)
     } else {
-     modelenv$model_stage$model$internal$train_ids <- modelenv$data[[id_var]]
+      modelenv$model_stage$model$internal$train_ids <- modelenv$data[[id_var]]
       modelenv$model_stage$id_var <- id_var
+
 
       # TODO: (RK) Only record this when model_card stage is present.
       modelenv$import_stage$env$test_data <-
@@ -50,6 +51,8 @@ model_stage <- function(modelenv, model_parameters) {
       modelenv$import_stage$env$train_data <-
         modelenv$import_stage$env$full_data[
           modelenv$import_stage$env$full_data[[id_var]] %in% modelenv$data[[id_var]], ]
+
+      modelenv$data[[id_var]] <- NULL
     }
 
     predict_pre_munge_hook <- eval(bquote(function() {
