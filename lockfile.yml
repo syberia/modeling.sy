@@ -1,9 +1,5 @@
 packages:
   -
-    name: bettertrace
-    version: 0.1.2
-    repo: robertzk/bettertrace
-  -
     name: objectdiff
     version: 0.2.3.9003
     repo: robertzk/objectdiff
