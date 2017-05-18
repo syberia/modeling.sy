@@ -20,11 +20,14 @@ runner <- function(version) {
 
 stest <- function(filter) {
   library(testthat)
-  filter <- gsub("^\\/?test/", "", filter)
-  if (missing(filter)) test_project(root()) # Run all tests in this repo
-  else {
+  if (missing(filter)) {
+    test_project(root()) # Run all tests in this repo
+  } else {
+    filter <- gsub("^\\/?test/", "", filter)
     tests <- syberia::active_project()$find(filter, base = 'test')
-    for (test in tests) syberia::active_project()$resource(test, recompile = TRUE, recompile. = TRUE) # Run test
+    for (test in tests) {
+      syberia::active_project()$resource(test, recompile = TRUE, recompile. = TRUE) # Run test
+    }
   }
 }
 
