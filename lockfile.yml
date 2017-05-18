@@ -5,11 +5,11 @@ packages:
     repo: robertzk/bettertrace
   -
     name: objectdiff
-    version: 0.2.3.9000
+    version: 0.2.3.9003
     repo: robertzk/objectdiff
   -
     name: stagerunner
-    version: 0.5.3
+    version: 0.5.6
     repo: syberia/stagerunner
   -
     name: Ramd
@@ -20,14 +20,9 @@ packages:
     version: 0.1.3
     repo: robertzk/statsUtils
   -
-    name: mungebits
-    version: 0.3.13
-    repo: robertzk/mungebits
-    load: false
-  -
-    name: syberiaMungebits
-    version: 0.2.6
-    repo: robertzk/syberiaMungebits
+    name: syberiaMungebits2
+    version: 0.1.2.9002
+    repo: syberia/syberiaMungebits2
   -
     name: director
     version: 0.3.0.5.9000
@@ -40,19 +35,19 @@ packages:
     name: syberia
     version: 0.6.1.9009
     repo: syberia/syberia
-    ref: 0.6-dev
+    ref: 0.6.1.9009
   -
     name: syberiaMungebits2
     version: 0.1.2.9002
     repo: syberia/syberiaMungebits2
   -
     name: mungebits2
-    version: 0.1.0.9008
+    version: 0.1.0.9014
     repo: syberia/mungebits2
   -
     name: gbm
     version: 2.1.3
   -
     name: s3mpi
-    version: 0.2.19
+    version: 0.2.40
     repo: robertzk/s3mpi
