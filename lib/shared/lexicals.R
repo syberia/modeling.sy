@@ -32,6 +32,14 @@ lexicals$`!` <- (function() {
       # !!{dataframe <- ...} should be a global transformation
       fnbody <- body(environment(x)$transformation)
       eval(bquote(function(dataframe, ...) eval.parent(substitute(.(fnbody)))))
+    } else if (is.list(x)) {
+      lapply(x, function(obj) {
+        if (is.symbol(obj)) {
+          get(as.character(obj), envir = parent.frame())
+        } else {
+          obj
+        }
+      })
     } else {
       base::`!`(x)
     }
