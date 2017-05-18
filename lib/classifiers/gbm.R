@@ -49,7 +49,7 @@ train <- function(dataframe) {
 
   if (!is.null(input$perf_method)) {
     output$perf[[input$perf_method]] <<-
-      gbm.perf(output$model, method = input$perf_method, plot.it = FALSE)
+      gbm::gbm.perf(output$model, method = input$perf_method, plot.it = FALSE)
   }
   if (!is.null(input$prediction_type))
     output$prediction_type <<- input$prediction_type
@@ -72,7 +72,7 @@ predict <- function(dataframe, predict_args = list()) {
   
   if (!perf_method %in% names(output$perf))
     output$perf[[perf_method]] <<-
-    gbm.perf(output$model, method = perf_method, plot.it = FALSE)
+    gbm::gbm.perf(output$model, method = perf_method, plot.it = FALSE)
   
   predict(object = output$model, newdata = dataframe,
               output$perf[[perf_method]], type = type)
