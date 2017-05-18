@@ -89,6 +89,11 @@ reload_syberia <- function(...) {
   invisible(TRUE)
 }
 
+reinstall_engines <- function() {
+  unlink(syberia:::engine_location_path(), recursive = TRUE, force = TRUE)
+  reload_syberia()
+}
+
 run_model <- Ramd::define("run_model")[[1L]]
 run <- run_model
 
