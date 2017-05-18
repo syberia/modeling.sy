@@ -6,16 +6,14 @@ train <- function(dataframe) {
   stopifnot(length(indep_vars) > 0)
   stopifnot(is.numeric(input$number_of_trees))
   
+  gbm_args[[1]] <- as.formula(paste('dep_var ~ `',
+                                    paste(indep_vars, collapse = "` + `"),
+                                    '`', sep = ''), env = baseenv())
+  gbm_args$data <- dataframe
+
   if (isTRUE(input$cv)) {
-    gbm_args[[1]] <- as.formula(paste('dep_var ~ `',
-                                      paste(indep_vars, collapse = "` + `"),
-                                      '`', sep = ''), env = baseenv())
-    gbm_args$data <- dataframe
     gbm_args$cv.folds <- input$cv_folds
     gbm_args$n.cores  <- input$number_of_cores
-  } else {
-    gbm_args$x <- dataframe[, indep_vars]
-    gbm_args$y <- dataframe[, 'dep_var']
   }
   
   gbm_args <- append(gbm_args,
