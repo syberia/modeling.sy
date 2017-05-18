@@ -1,5 +1,9 @@
 packages:
   -
+    name: bettertrace
+    version: 0.1.2
+    repo: robertzk/bettertrace
+  -
     name: objectdiff
     version: 0.2.3.9000
     repo: robertzk/objectdiff
@@ -34,16 +38,20 @@ packages:
     repo: syberia/tundra
   -
     name: syberia
-    version: 0.6.1.9007
+    version: 0.6.1.9009
     repo: syberia/syberia
     ref: 0.6-dev
   -
+    name: syberiaMungebits2
+    version: 0.1.2.9002
+    repo: syberia/syberiaMungebits2
+  -
     name: mungebits2
-    version: 0.1.0.9002
+    version: 0.1.0.9008
     repo: syberia/mungebits2
   -
     name: gbm
-    version: 2.1.1
+    version: 2.1.3
   -
     name: s3mpi
     version: 0.2.19
