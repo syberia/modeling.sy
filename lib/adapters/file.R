@@ -24,7 +24,7 @@ read <- function(name, ...) {
     read_csv_params <- c("header", "sep", "quote", "dec", "fill", "comment.char",
       "stringsAsFactors")
     args <- simple_merge(list(file = name, stringsAsFactors = FALSE),
-                         list(...)[read_csv_params])
+                         list(...)[intersect(read_csv_params, names(list(...)))])
     do.call(read.csv, args)
   }
 }
@@ -41,13 +41,14 @@ write <- function(object, name, ...) {
   if (is.data.frame(object)) {
     write_csv_params <- setdiff(names(formals(write.table)), c("x", "file"))
     args <- simple_merge(list(x = object, file = name, row.names = FALSE),
-                         list(...)[write_csv_params])
+                         list(...)[intersect(write_csv_params, names(list(...)))])
     do.call(write.csv, args)
   } else {
     save_rds_params <- setdiff(names(formals(saveRDS)), c("object", "file"))
     args <- list_merge(list(object = object, file = name),
-                       list(...)[save_rds_params])
+                       list(...)[intersect(save_rds_params, names(list(...)))])
     do.call(saveRDS, args)
   }
 }
+
 
