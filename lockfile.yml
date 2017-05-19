@@ -38,7 +38,7 @@ packages:
     repo: syberia/mungebits2
   -
     name: gbm
-    version: 2.1.3
+    version: 2.1.1
   -
     name: s3mpi
     version: 0.2.40
