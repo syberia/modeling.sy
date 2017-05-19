@@ -3,23 +3,32 @@ sudo: false
 addons:
   apt:
     sources:
-      - r-packages-precise
+    - r-packages-precise
     packages:
-      - r-base-dev
-      - r-recommended
-      - pandoc
+    - r-base-dev
+    - r-recommended
+    - pandoc
 env:
-  - global:
-    - TRAVIS=true
-    - R_LIBS_USER=~/.R/library
+- global:
+  - TRAVIS=true
+  - R_LIBS_USER=~/.R/library
 cache:
-  directories:
-    ~/.R
+  directories: "~/.R"
 before_script:
-  - rm -rf "/home/travis/.R/.syberia"
-  - mkdir -p "$R_LIBS_USER"
-script:  "Rscript -e 'library(syberia); library(methods); devtools::with_options(list(stub = 1), force); syberia::syberia_engine(); quit(status = tryCatch({ syberia::test_engine(); 0 }, error = function(e) { message(e); message(bettertrace::stacktrace()); 1 }));'" 
+- rm -rf "/home/travis/.R/.syberia"
+- mkdir -p "$R_LIBS_USER"
+script: Rscript -e 'library(syberia); library(methods); devtools::with_options(list(stub
+  = 1), force); syberia::syberia_engine(); quit(status = tryCatch({ syberia::test_engine();
+  0 }, error = function(e) { message(e); message(bettertrace::stacktrace()); 1 }));'
 notifications:
   email:
     on_success: change
     on_failure: change
+  hipchat:
+    on_success: change
+    on_failure: change
+    template:
+    - "%{repository}#%{build_number} (%{branch} - %{commit} : %{author}): %{message}
+      | Details: %{build_url} | Changes: %{compare_url}"
+    rooms:
+      secure: H5NcwSwr0sYIc5XOoZGZ80eqPF4zYnaLVc4GszmgxzCutJY41GavGWzC9dr4YA/Xa+7kE684aN0KhEkbyr6kuJeAkilFg8mBbLrsbxZe+giXNjDqWllFIwQIjbGQtShljliMbpEVQKC5Fq5QdtDi/VJO5lchwX7KPLH1F8Jef6k=
