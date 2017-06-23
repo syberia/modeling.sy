@@ -11,6 +11,7 @@ adapters <- function(...) syberia::active_project()$find(..., method = 'substrin
 controllers <- function(...) syberia::active_project()$find(..., method = 'substring', '^lib/controllers')
 shared <- function(...) syberia::active_project()$find(..., method = 'substring', '^lib/shared')
 stages <- function(...) syberia::active_project()$find(..., method = 'substring', '^lib/stages')
+project_resources <- function(...) syberia::active_project()$find()
 
 runner <- function(version) {
   res <- Filter(function(x) grepl('^/?models/', x), syberia::active_project()$find(version))[1]
