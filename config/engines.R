@@ -1,4 +1,5 @@
-engine("base", type = "github", repo = "syberia/base.sy", mount = TRUE)
+engine("base", type = "local", path = "~/dev/base.sy", mount = TRUE)
+# engine("base", type = "github", repo = "syberia/base.sy", mount = TRUE)
 
 .onAttach <- function(parent_engine) {
 
@@ -22,6 +23,5 @@ engine("base", type = "github", repo = "syberia/base.sy", mount = TRUE)
     attach(parent_engine$resource('config/global', director = parent_engine, children. = FALSE),
            name = "syberia:project")
   }
-
 }
 
