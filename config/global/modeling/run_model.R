@@ -10,14 +10,18 @@
 #' @param fresh logical. Whether or not to use the cache. By default, \code{FALSE}.
 #' @param verbose logical. Whether or not to display messages. The default is
 #'   \code{TRUE}.
+#' @param director director. The director object used to find relevant models.
+#' @param method character. The method used to look up relevant models, either
+#'   \code{"wildcard"}, \code{"partial"}, or \code{"exact"}, by default the former.
+#'   See also \link[director]{director_find}.
 #' @export
 run_model <- function(key = director$cache_get("last_key"), ..., fresh = FALSE,
-                      verbose = TRUE, director = syberia::active_project()) {
+                      verbose = TRUE, director = syberia::active_project(), method = 'wildcard') {
   if (missing(key)) { key <- director$cache_get("last_key") }
   if (!is.character(key)) { stop("No model executed.", call. = FALSE) }
   director$cache_set("last_key", key)
 
-  keys <- director$find(key, base = 'models')
+  keys <- director$find(key, base = 'models', method = method)
   if (length(keys) == 0) {
     stop("No model ", sQuote(key),
          " found in syberia project ", sQuote(director$root()), call. = FALSE)
